@@ -2,7 +2,9 @@
 Cloud Test Software Open source software test automation tool with recording plugin
 
 
-Visit [CloudTestSoftware](http://www.CloudTestSoftware.com)
+Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
+
+Install CloudTest Software's [Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware)
 
  To use this framework to build quick browser automation tests follow these simple steps
        
