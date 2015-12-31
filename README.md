@@ -2,7 +2,7 @@
 Cloud Test Software Open source software test automation tool with recording plugin
 
 
-Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
+Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com  target="_blank")
 
 Install CloudTest Software's [ CTO Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware)
 
