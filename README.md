@@ -6,7 +6,9 @@ Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
 
 Install CloudTest Software's [Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware)
 
- To use this framework to build quick browser automation tests follow these simple steps
+# Steps for Selenium WebDriver Tests using TestNG or Junit
+
+ To use this framework to build quick browser automation tests using TestNg or Junit follow these simple steps
        
         1) Register an account with www.CloudTestSoftware.com using your company email and password
         2) Login to the account using email and password
