@@ -13,9 +13,9 @@ CloudTestSoftware has built an automation framework which can create injectors a
 If you find any issue, please create a ticket using ISSUEs. Also please use [ CTO Group](https://groups.google.com/forum/#!forum/cloud-test-software--software-automation-as-a-service) to discuss any issues.
 
 
-## Steps for browser Automation Tests using CTO recording tool (No Coding needed)
+## Steps for browser Automation Tests using CTO recording tool                     (No Coding needed)
 
-To use this framework to build quick browser automation tests using TestNg or Junit follow these simple steps
+If you like to save cost of script and want easy maintenance, then use the CTO recoder and XML script which does not require any programming language or coding. However, you can build complex automated tests using XML or Java injectors. Please watch videos to learn and refer sample XML script given under ../data/module/Frontend/QVC
 
     1) Register an account with www.CloudTestSoftware.com using your company email and password
     2) Login to the account using email and password
