@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.item_id -->
+
+<page name="218EC73C2C4001B2E0500D0A1FAB5F8E" >
+
+	<action name="TC1" apiname="" type="API" dbName="demodb" fields=""
+		description="Item Finder Happy Path testing">
+
+		<validator
+			name="Template for using Assert Key to Filter DBMS Output message"
+			description="Item Finder Assert Test">
+			<variables>
+				<item id="item1" value="global:setup.S2H" index="1" />
+
+			</variables>
+
+			<!-- Use these below 3 attributes only for oracle dbmsoutput="yes" dbmstable="yes" 
+				dbmsoutputkey="Assert" -->
+
+			<sql name="q1" dbname="demodb" dbmsoutput="yes" dbmstable="yes"
+				dbmsoutputkey="Assert">
+
+				DECLARE
+				--Declare your varaible in this section
+				x integer:=1;
+				y integer:=2;
+
+				BEGIN
+				-- Declare dbms output header in csv file format
+				dbms_output.put_line('DBMSOUTPUT');
+
+				for c in(
+				select 1 as result from wca_item_master where item_id=@item1
+				) Loop
+
+				dbms_output.put_line('Verifying X Result');
+
+				if c.result= x then
+				dbms_output.put_line('Assert: Current Item Found for X= PASS');
+				else
+				dbms_output.put_line('Assert: Current Item Found for X= FAIL');
+				end if;
+
+				dbms_output.put_line('Verifying Y Result');
+
+				if c.result+1 = y then
+
+				dbms_output.put_line('Assert: Current Item Found for Y = FAIL');
+
+				else
+				dbms_output.put_line('Assert: Current Item Found for Y = PASS');
+				end if;
+				End Loop;
+
+				END;
+
+
+			</sql>
+
+			<assert name="Verify whether testresult return is "
+				descriptor="VARCHAR" output="q1.DBMSOUTPUT" lookuprow="*" value="PASS"
+				operator="Has" />
+
+		</validator>
+	</action>
+
+	<action name="TC2" apiname="" type="API" dbName="demodb" fields=""
+		description="Item Finder Happy Path testing">
+
+		<validator name="Template for WITHOUT Assert Key with Output message"
+			description="No Assert Key with cvs file">
+			<variables>
+				<item id="itemId" value="global:setup.S2H" index="1" />
+
+			</variables>
+
+			<sql name="q1" dbname="demodb" dbmsoutput="yes" dbmstable="yes"
+				filetype=".csv">
+
+				DECLARE
+				--Declare your varaible in this section
+				x integer:=1;
+				y integer:=2;
+
+				BEGIN
+				-- Declare dbms output header in csv file format with multiple column
+				dbms_output.put_line('ItemId,Description, Result');
+
+				for c in(
+				select 1 as result from wca_item_master where item_id=@itemId
+				) Loop
+
+				-- below dbms_output is not allowed because that does not match header
+				column format
+
+				--dbms_output.put_line('Verifying X Result');
+
+				if c.result= x then
+				dbms_output.put_line('@itemId'|| ',Current Item Found for X= PASS,'||c.result);
+				else
+				dbms_output.put_line('@itemId'|| ',Current Item Found for X= FAIL,'||c.result);
+				end if;
+
+				-- below dbms_output is not allowed because that does not match header
+				column format
+				--dbms_output.put_line('Verifying Y Result');
+
+				if c.result+1 = y then
+
+				dbms_output.put_line('@itemId'|| ',Current Item Found for Y= FAIL,'||c.result);
+
+				else
+				dbms_output.put_line('@itemId'|| ',Current Item Found for Y= PASS,'||c.result);
+				end if;
+				End Loop;
+
+				END;
+
+
+			</sql>
+
+			<assert name="Verify whether testresult return is "
+				descriptor="VARCHAR" output="q1.Description" lookuprow="*" value="PASS"
+				operator="Has" />
+
+		</validator>
+	</action>
+
+</page>
+
+

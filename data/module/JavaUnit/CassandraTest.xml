@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.PARTNER_ID -->
+
+<page name="248EC73C2C4001B2E2505D0A1FAB5F8E" description="Sample junit and TestNg Java test using Cassandra ">
+
+
+
+	<action name="Cassandra Dataset" dbName="demodb" setglobal="yes"
+		description="create global dataset first from database using setglobal=yes">
+
+		<validator name="Step-1: Call Cassandra Database"
+			description="Item Finder Assert Test">
+
+			<sql name="q1" dbname="demodb" globaldataset="yes">
+
+				select *from test
+
+			</sql>
+
+			<assert name="Verify whether testresult return is "
+				descriptor="VARCHAR" output="q1.viewdesc" lookuprow="*"
+				value="Weather forcast" operator="Has" />
+
+		</validator>
+
+
+	</action>
+
+
+
+	<action name="Cassandra Junit Test" dataset="global:query.q1"
+		dbName="demodb"
+		description="Use SQL dataset from above action and run junit test using each row">
+
+		<validator name="Step-1: Run Junit Test" description="">
+
+			<junit name="Test com.testmax.samples.cassandra">
+				<testPackage name="com.testmax.samples.cassandra">
+					<testClass class="CassandraTest"></testClass>
+				</testPackage>
+			</junit>
+
+
+		</validator>
+
+	</action>
+
+	<action name="Cassandra TestNg Test" dataset="global:query.q1"
+		dbName="demodb"
+		description="Use SQL dataset from above action and run TestNg test using each row">
+
+		<validator name="Step-1: Run TestNg Test" description="">
+
+			<testng name="Test com.testmax.samples.cassandra" >
+				<testPackage name="com.testmax.samples.cassandra">
+					<testClass class="CassandraTestNgTest"></testClass>
+				</testPackage>
+			</testng>
+
+
+		</validator>
+
+	</action>
+
+
+</page>
+
+
+

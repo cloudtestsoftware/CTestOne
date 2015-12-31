@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.item_id -->
+
+<page name="208EC73C2C4001B2E0500D0A1FAB5F8E" >
+
+	<action name="TC1.0" type="WEBSERVICE" dbName="demodb">
+
+		<validator name="TC1.3_photo" description="Test Local Circle Login">
+			<ws name="Login" method="POST" httpclient="scm.wm.uri.HttpSoapWebservice">
+
+				<!-- PROVIDE YOUR URI As below -->
+				<url>/services/GetMyStoresService</url>
+
+				<param name="wsdl">
+
+					<!-- Copy SOAP Envelope and paste like below within param tag -->
+
+					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+						xmlns:get="http://www.walmart.com/getallstores">
+						<soapenv:Header />
+						<soapenv:Body>
+							<get:getAllStores>
+								<!--Optional: -->
+								<get:storeService>PHOTO_CENTER_ONE_HOUR</get:storeService>
+							</get:getAllStores>
+						</soapenv:Body>
+					</soapenv:Envelope>
+
+					<!-- END OF SOAP ENVELOPE -->
+
+				</param>
+
+				<assert name="Verify Store Id 1854" nodepath="store"
+					indexpath="0" elements="storeId,storeNumber" values="1854,01854"
+					datatype="String,String" operator="Eq" />
+
+				<assert name="Verify Store Id 2085" nodepath="store"
+					indexpath="1" elements="storeId,storeNumber" values="2085,02085"
+					datatype="String,String" operator="Eq" />
+
+				<assert name="Verify Address for Store Id 1854" nodepath="store:address"
+					indexpath="0:1" elements="line1,city,zipCode"
+					values="Plz Del Norte Carr #2 KM 819,Hatillo,00659" datatype="String,String,String"
+					operator="Eq" />
+
+				<assert name="Verify Address for Store Id 2085" nodepath="store:address"
+					indexpath="1:1" elements="line1,city,zipCode" values="3535 Military Ave,Isabela,00662"
+					datatype="String,String,String" operator="Eq" />
+
+				<assert name="Verify Service for Store Id 1854" nodepath="service"
+					indexpath="0"
+					elements="hoursOfOperationDay0,opticalStatusMessageId,localServiceOnly"
+					values="10:00 - 20:00,0,Y" datatype="String,String,String"
+					operator="Eq" />
+
+			</ws>
+
+		</validator>
+
+	</action>
+
+	<action name="Test SuggestionBox  API- TC12 Verify the concepts property"
+		type="WEBSERVICE" dataset="global:xls.api_setup_category"
+		datarowindex="3" description="TNT with valid D+CM">
+
+		<validator name="Community API - get siteid " description="Test Spigit Webservice">
+			<sql name="q1" dbname="apidb" includes="sqllib:SpigitApi.siteIdForCommunity">
+				@sqllib:SpigitApi.siteIdForCommunity
+			</sql>
+		</validator>
+		<validator name="Community API - get site categories "
+			description="Test Spigit Webservice">
+			<sql name="q2" dbname="apidb" includes="sqllib:SpigitApi.siteCategories">
+				@sqllib:SpigitApi.siteCategories
+			</sql>
+		</validator>
+
+
+		<validator name="Community API - verify inquiries value for a community"
+			description="Test Spigit Webservice">
+			<variables>
+				<var id="cookie" value="global:spigit.Cookie" index="1" />
+				<var id="thesiteid" value="q1.siteid" />
+				<var id="uri" value="@url/q" />
+			</variables>
+
+			<ws name="ws1" method="GET" globaldatanode="data"
+				httpclient="scm.wm.uri.HttpRestWithXmlBody">
+				<!-- PROVIDE URI Like Below -->
+				<url>@uri-@thesiteid?fields=concepts</url>
+				<!-- Starting of param tag -->
+				<param name="Cookie">@cookie</param>
+			</ws>
+
+			<assert name="Verify that the concepts value" nodepath="results"
+				indexpath="0" elements="community" values="_ds:site-@thesiteid"
+				datatype="String" operator="Eq" />
+
+			<assert name="Verify NodeId Exists for all rows" descriptor="VARCHAR"
+				output="q2.nodeid" lookuprow="*" value="ws:ws1" operator="Has" />
+
+			<assert name="Verify NodeId Exists for all rows" descriptor="VARCHAR"
+				output="q2.title" lookuprow="*" value="ws:ws1" operator="Has" />
+
+			<assert name="Verify the attribnutes " descriptor="VARCHAR"
+				output="title,eid" value="global:ws1.attributes" operator="Has" />
+
+		</validator>
+
+	</action>
+
+	<action name="Test Community  API- TC13" type="WEBSERVICE"
+		dataset="global:xls.api_setup_community" datarowindex="1"
+		description="TNT with valid D+CM">
+
+		<validator name="Community API - get siteid " description="Test Spigit Webservice">
+			<sql name="q1" dbname="apidb" globaldataset="yes">
+				SELECT siteid FROM `SiteUrls` where servername like '@community%';
+			</sql>
+		</validator>
+
+		<validator name="Community API - verify ideas values for a community"
+			description="Test Spigit Webservice">
+			<variables>
+				<var id="cookie" value="global:spigit.Cookie" index="1" />
+				<var id="thesiteid" value="q1.siteid" />
+				<var id="uri" value="@url/comm-509?fields=ideas" />
+			</variables>
+
+			<ws name="ws1" method="GET" globaldatanode="data" stripchar="_ds:node-"
+				httpclient="scm.wm.uri.HttpRestWithXmlBody">
+				<!-- PROVIDE URI Like Below -->
+				<url>@uri</url>
+				<!-- Starting of param tag -->
+				<param name="Cookie">@cookie</param>
+			</ws>
+
+
+			<assert name="Verify Idea Count having " descriptor="VARCHAR"
+				output="4" value="global:ws1.count" operator="Has" />
+
+			<ws name="ws1" method="GET" globaldatanode="data" stripchar="eid:"
+				httpclient="scm.wm.uri.HttpRestWithXmlBody">
+				<!-- PROVIDE URI Like Below -->
+				<url>@uri</url>
+				<!-- Starting of param tag -->
+				<param name="Cookie">@cookie</param>
+			</ws>
+
+			<assert name="Verify eid Count having " descriptor="VARCHAR"
+				output="4" value="global:ws1.count" operator="Has" />
+
+			<ws name="ws1" method="GET" globaldatanode="data" stripchar="title:"
+				httpclient="scm.wm.uri.HttpRestWithXmlBody">
+				<!-- PROVIDE URI Like Below -->
+				<url>@uri</url>
+				<!-- Starting of param tag -->
+				<param name="Cookie">@cookie</param>
+			</ws>
+
+			<assert name="Verify title Count is " descriptor="VARCHAR"
+				output="4" value="global:ws1.count" operator="Has" />
+
+			<assert name="Validate idea present" descriptor="VARCHAR"
+				output="ws:ws1" value="@idea1" operator="Has" />
+
+			<assert name="Validate idea present" descriptor="VARCHAR"
+				output="ws:ws1" value="@idea2" operator="Has" />
+
+			<assert name="alidate idea present" descriptor="VARCHAR"
+				output="ws:ws1" value="@idea3" operator="Has" />
+
+			<assert name="alidate idea present" descriptor="VARCHAR"
+				output="ws:ws1" value="@idea4" operator="Has" />
+
+		</validator>
+
+	</action>
+
+</page>
+
+

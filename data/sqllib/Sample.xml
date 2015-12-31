@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Add any global variable used across all test case with global element 
+	name same as your module name. you can pass any global element sqllib:<Module 
+	Name>.<element tag> Ex: sqllib:ProdOrderReport.t_edd_log_rec -->
+
+<sqllib name="SqlLibSetup">
+
+	<ship_cal_api>
+		declare
+		-- Non-scalar parameters require additional processing
+		item_tab_in t_shipping_option_tbl := t_shipping_option_tbl();
+		bundle_component_tab_in t_bundle_component_tbl :=
+		t_bundle_component_tbl();
+		v_items_ship_info_out wca_shipping_calculator_mp_pkg.t_shipping_info_cur;
+		v_item_ship wca_shipping_calculator_mp_pkg.t_shipping_info_rec;
+		v_wav_surcharge_home_free_out varchar2(10);
+		success BOOLEAN;
+	</ship_cal_api>
+
+	<ship_cal_bundle>
+
+		declare
+		-- Non-scalar parameters require additional processing
+		--Write Your code
+		begin
+		-- Call the procedure
+		dbms_output.put_line('DBMSOUTPUT');
+
+		--Call any API
+
+	</ship_cal_bundle>
+
+	<supervisorid>
+
+		SELECT J.SUPERVISOR_ID as supervisorid, P.NAME as name, COMPANY
+		FROM PS_JOB J, PS_PERS_NAME_PRI P
+		WHERE J.EMPLID = '00001270807'
+		AND
+		J.EMPL_RCD = (SELECT DISTINCT EMPL_RCD FROM PS_JOB WHERE EMPLID =
+		'00001270807')
+		AND J.SUPERVISOR_ID = P.EMPLID
+		AND J.EFFDT = (SELECT MAX(EFFDT) FROM PS_JOB WHERE EMPLID = J.EMPLID AND
+		EMPL_RCD = J.EMPL_RCD AND EFFDT &amp;lt;= SYSDATE)
+		AND J.EFFSEQ = (SELECT MAX(EFFSEQ) FROM PS_JOB WHERE EMPLID = J.EMPLID
+		AND EMPL_RCD = J.EMPL_RCD AND EFFDT = J.EFFDT)
+	</supervisorid>
+
+</sqllib>
+

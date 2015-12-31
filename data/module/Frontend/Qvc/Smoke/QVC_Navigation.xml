@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This page is a simple skeleton for building all test scenarios automation 
+You should replace the injector with actual injector @taglib:your_taglib_name.your_injector_name 
+However, you can add multiple different validators with multiple test steps within a single action container 
+in combination with Seleneium and web service, mobile, junit, TestNg, SQL etc. 
+to build complex end to end tests.  
+You can also add assert containers within each validators.There are many types of operators and varaible combinations supported.   
+Below are just 2 simple examples one is with hardcoded expected value and other is using parameter input either from dataset in XLS or local varible defined within Validator container 
+<assert name="Verify your expected result" descriptor="VARCHAR" output="junit:v_read_from_browser_variable" value="Hardcoded Text Value" operator="Has" /> 
+<assert name="Verify expected=@input_from_xls value" descriptor="VARCHAR" output="junit:v_read_from_browser_variable" value="@input_from_xls" operator="Has" />
+Please reffer to your training manual or FAQ documents for details.  -->
+<page name="248EC73C2C4001B2E0505D0A1FAB5F8E" description="Smoke Test for Item navigation">
+
+
+<action  name="248EC73C2C4101B2E0505D0A1FAB5F8E"  dataset="global:xls.qvc_category_data"  description="Navigate to all items in each department using menu">
+	   
+
+		<validator name="Step-1: Navigation Tests for @submenu_name : @searchtext"  description=" Write few word why you need this step">
+			
+			<junit name="Test Browser Action= 248EC73C2C4101B2E0505D0A1FAB5F8E or Give any meaningful name for this container">
+				<testPackage name="com.testmax.runner">
+					<testClass class="SeleniumTestRunner">
+						
+						<taglib>
+						
+						    <!-- Taglib is normally uses tag and or with combination of one or more injectors.
+						     In this example, we are just calling the injector as taglib. 
+						     But in real world taglib in CloudTest platform is containers of abstract injectors with or without any real HTML tag definition
+						     To learn more about how to use injector please look at FAQ -->
+							
+							@taglib:qvc_fashion.qvc_category
+							@taglib:qvc_fashion.qvc_price
+							
+						</taglib>
+						
+						<injectors>
+                           <!-- 
+                             No Injectors are defined in this example. Injectors are actual implementation of HTML tag attributes with its xpath.
+                             If a taglib contains injectors say A, B,C and if you put B in this section, then only B injector will be invoked.
+                             A and C, will not be executed. To learn more about how to use injector please look at FAQ.
+                            -->
+						</injectors>
+						
+					</testClass>
+				</testPackage>
+			</junit>
+			
+		<!-- Below is a sample assert. You can add more assert object with different operators like Eq, Nq, Has,Lt,LtEq etc --> 
+		
+            <assert name="Verify price for item= @mainmenu_name: @submenu_name : @searchtext " descriptor="NUMBER" output="junit:v_verify_item_value" value="5" operator="Gt" /> 
+            
+		</validator>
+
+
+	</action>
+
+</page>

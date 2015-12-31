@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.PARTNER_ID -->
+
+<page name="208EC73C2C4001B2E0500D0A1FAB5F8E" >
+
+
+	<action name="Test Junit" apiname="" type="API" dbName="demodb"
+		fields="" description="Test Distributor=null">
+
+
+		<validator name="Step-1: Find Order from order line"
+			description="">
+
+			<variables>
+				<var id="hrs" value="1/12" />
+			</variables>
+			<sql name="q1" dbname="demodb" description="Find Order No">
+				select *from
+				PS_T2_PE_RPTD_TBL where rownum=1
+
+			</sql>
+
+
+			<assert name="Verify OMS order line with Distributor=NULL"
+				descriptor="VARCHAR" output="q1.emplid" lookuprow="1" value="0"
+				operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Run Junit Test" description="">
+
+			<!-- PASS GLOBAL Variables for JUNIT class -->
+
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+
+
+			<junit name="Test scm.wm.samples.money">
+				<testPackage name="scm.wm.samples.money">
+					<testClass class="QueryTest">
+
+						<!-- PASS LOCAL Variable for each JUNIT class -->
+
+						<variables>
+							<var id="order_no" value="q1.order_no" index="1" />
+							<var id="localmsg" value="Local Message" />
+						</variables>
+
+					</testClass>
+
+					<!-- JUNIT CLASS without any local variable -->
+
+					<testClass class="MoneyTest"></testClass>
+				</testPackage>
+			</junit>
+
+			<assert name="Verify OMS order line with Distributor=NULL"
+				descriptor="VARCHAR" output="junit:localmsg" value="@localmsg"
+				operator="Eq" />
+
+		</validator>
+
+
+
+	</action>
+
+
+</page>
+
+
+

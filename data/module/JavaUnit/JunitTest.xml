@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.PARTNER_ID -->
+
+<page name="248EC73C2C4001B7E0505D0A1FAB5F8E" description="Sample junit test using database ">
+
+
+
+	<action name="Test Junit" description="Test Distributor=null">
+
+
+		<validator name="Step-1: Find Order from order line"
+			description="This sample to show how you can define varaible. To use this varaible just put @[id], if this is a string put within single quote to use in SQL">
+
+			<variables description="sample validator level varaible">
+
+				<var id="hrs" value="1/12" />
+			</variables>
+
+			<sql name="q1" dbname="demodb"
+				description="Find Order No using database tag demodb is defined under /data/config file db_demo.xml">
+				select distinct '123456' as order_no,sysdate as
+				created_dtm,'created' as current_status from dual
+
+			</sql>
+
+
+			<assert name="Verify order line no" descriptor="VARCHAR"
+				output="q1.order_no" lookuprow="1" value="0" operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Run Junit Test" description="">
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+			<junit name="Test com.testmax.samples.junit.money">
+				<testPackage name="com.testmax.samples.junit.money">
+					<testClass class="QueryTest">
+						<variables>
+							<var id="order_no" value="q1.order_no" index="1" />
+							<var id="localmsg" value="Local Message" />
+						</variables>
+					</testClass>
+					<testClass class="MoneyTest"></testClass>
+				</testPackage>
+			</junit>
+
+			<assert name="assert message against java Junit result"
+				descriptor="VARCHAR" output="@localmsg" value="junit:localmsg"
+				operator="Eq" />
+
+		</validator>
+
+
+
+	</action>
+
+
+</page>
+
+
+

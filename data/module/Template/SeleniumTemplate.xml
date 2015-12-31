@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<page name="208EC73D2C4001B2E0500D0A1FAB5F8E" >
+
+	<action name="TC1" apiname="" type="API" dbName="demodb" fields=""
+		description="Test Distributor=null">
+
+		<validator name="Step: Call Cassandra Database" description="Item Finder Assert Test">
+			<variables>
+				<var id="apiname" value="mytest2" />
+			</variables>
+
+			<sql name="q1" dbname="demodb" globaldataset="yes">
+
+				select *from test where apiname='@apiname'
+
+			</sql>
+
+			<assert name="Verify whether testresult return is "
+				descriptor="VARCHAR" output="q1.viewdesc" lookuprow="*"
+				value="Weather forcast" operator="Has" />
+
+		</validator>
+		<validator name="Step-2: Login To APIgee Dashboard"
+			description="">
+			<variables>
+				<var id="wwwserver" value="https://enterprise.apigee.com/login" />
+				<var id="loginname" value="Your Login" />
+				<var id="password" value="Your Password" />
+			</variables>
+			<junit name="Test scm.wm.runner">
+				<testPackage name="scm.wm.runner">
+					<testClass class="SeleniumTestRunner">
+						<variables>
+							<var id="apiname" value="q1.apiname" />
+							<var id="basepath" value="q1.basepath" />
+							<var id="description" value="q1.description" />
+							<var id="endpoint" value="q1.endpoint" />
+							<var id="urlview" value="q1.urlview" />
+							<var id="nameview" value="q1.nameview" />
+							<var id="viewdesc" value="q1.viewdesc" />
+						</variables>
+						<taglib>
+							@taglib:apigee.loginToApigee
+							@taglib:apigee.invokeDashboard
+						</taglib>
+						<injectors>
+							@taglib:apigee-injector.deleteAPI
+							@taglib:apigee-injector.invokeAPI
+						</injectors>
+					</testClass>
+				</testPackage>
+			</junit>
+
+		</validator>
+
+
+	</action>
+
+</page>
+
+
+

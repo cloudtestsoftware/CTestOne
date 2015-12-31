@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.item_id -->
+
+<page name="218EC73C2C4001B2E0500D0A1FAB5F8E" >
+
+	<action name="TC1.0" type="WEBSERVICE" dbName="demodb"
+		description="TNT with valid D+CM">
+
+		<validator name="Step-1: Call TNT webservice and get response"
+			description="Test TNT Webservice">
+			<ws name="ws1" method="POST" httpclient="scm.wm.uri.HttpRestWebservice">
+
+				<!-- PROVIDE URI Like Below -->
+
+				<url>YOUR SERVICE URI or URL</url>
+
+				<!-- Starting of param tag -->
+
+				<param name="tntInput">
+
+					<!-- Provide INPUT XML TO YOUR REST As below within param tag If you 
+						have multiple parameters please add all parameter using param tag for each 
+						parameter -->
+
+					<tnt-input>
+						<distributorId>3559</distributorId>
+						<carrierMethodId>20</carrierMethodId>
+						<zip>94005</zip>
+						<isApoFbo>N</isApoFbo>
+						<isPoBox>N</isPoBox>
+						<storeId></storeId>
+					</tnt-input>
+
+					<!-- End of Parameter value for parameter=tntInput -->
+
+				</param>
+
+				<!-- Add other parameters if necessary -->
+
+			</ws>
+
+			<assert name="Validate Response for TC1" descriptor="VARCHAR"
+				output="ws1" value="Service call succeeded" operator="Has" />
+
+			<assert name="Verify TNT" nodepath="serviceResult" indexpath="0"
+				elements="tnt" values="0" datatype="Number" operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Execute TNT API" description="">
+			<variables>
+				<var id="distributor_id_in" value="3559" />
+				<var id="carrier_method_id_in" value="20" />
+				<var id="zip_in" value="94005" />
+				<var id="is_po_box_in" value="N" />
+				<var id="is_apo_fpo_in" value="N" />
+				<var id="state_in" value="CA" />
+				<var id="store_id_in" value="9999" />
+				<var id="tnt" value="ws:tnt" />
+			</variables>
+
+			<sql name="q1" dbname="demodb" dbmsoutput="yes" dbmstable="yes">
+				declare
+				distributor_id_in number:=@distributor_id_in;
+				carrier_method_id_in NUMBER:=@carrier_method_id_in;
+				state_in VARCHAR2(3):='@state_in';
+				zip_in VARCHAR2(5):='@zip_in';
+				is_po_box_in VARCHAR2(1):='@is_po_box_in';
+				is_apo_fpo_in VARCHAR2(1):='@is_apo_fpo_in';
+				store_id_in NUMBER(8,0):=@store_id_in;
+				shipping_method_no_in NUMBER:=1;
+				tnt_out_wmt NUMBER:=0;
+				tnt_ovr_out NUMBER:=0;
+				sm_max_allowed_tnt_out NUMBER:=0;
+				cm_rank_out NUMBER:=0;
+				backhaul_wpmbp_out VARCHAR(1);
+
+				begin
+				dbms_output.put_line('tnt_out_wmt');
+				demo_pk0.get_transit(distributor_id_in ,
+				shipping_method_no_in,
+				carrier_method_id_in ,
+				zip_in ,
+				state_in ,
+				is_apo_fpo_in,
+				is_po_box_in ,
+				store_id_in,
+				tnt_out_wmt,
+				sm_max_allowed_tnt_out,
+				cm_rank_out ,
+				backhaul_wpmbp_out ,
+				tnt_ovr_out );
+
+				dbms_output.put_line(tnt_out_wmt);
+				end;
+
+			</sql>
+
+			<assert name="Verify TNT for a distributor for @distributor_id_in"
+				descriptor="VARCHAR" output="q1.tnt_out_wmt" lookuprow="1" value="@tnt"
+				operator="Eq" />
+
+		</validator>
+
+	</action>
+
+	<!-- -->
+
+
+	<action name="Get oauth access token" type="WEBSERVICE"
+		setglobal="yes" description="TNT with valid D+CM">
+
+		<validator name="Call Mobile Login API" description="Test Spigit Webservice">
+			<variables>
+				<var id="uri" value="/oauth/token" />
+			</variables>
+			<ws name="ws1" method="POST" httpclient="scm.wm.uri.HttpRestWithXmlBody">
+
+				<url>@uri</url>
+
+				<param name="body">grant_type=password&amp;client_id=X2nbuI4GnGQ9&amp;client_secret=SB8LMLasuYylcBecjEjLXowgJ3KImq64XNeCCGzWbV45hNaA&amp;username=admin&amp;password=antfarm123</param>
+				<param name="Content-Type">application/x-www-form-urlencoded</param>
+			</ws>
+
+			<assert name="Validate userid for TC1" descriptor="VARCHAR"
+				output="ws:ws1" value="userId" operator="Has" />
+
+			<assert name="Validate access token for TC1" descriptor="VARCHAR"
+				output="ws:ws1" value="access__token" operator="Has" />
+
+			<assert name="Verify TNT" nodepath="root" indexpath="0"
+				elements="access__token" values="0" datatype="VARCHAR" operator="NotNull" />
+
+		</validator>
+
+		<validator name="Extract Global Variables" description="Test Spigit Webservice">
+
+			<variables>
+				<var id="access_token" value="ws:access__token" global="yes" />
+			</variables>
+
+			<assert name="Validate access token for TC1" descriptor="VARCHAR"
+				output="@access_token" value="global:access_token" operator="Eq" />
+
+		</validator>
+	</action>
+
+	<action name="Verify access token" type="WEBSERVICE" setglobal="yes"
+		description="TNT with valid D+CM">
+
+		<validator name="Extract Global Variables" description="Test Spigit Webservice">
+
+			<variables>
+				<var id="new_access_token" value="global:access_token" />
+			</variables>
+
+			<assert name="Validate access token for TC1" descriptor="VARCHAR"
+				output="@new_access_token" value="global:access_token" operator="Eq" />
+
+		</validator>
+	</action>
+
+	<action
+		name="Verify that all the standard attributes are present for the call and make sure all the values are correct"
+		type="WEBSERVICE" dataset="global:xls.api_setup_category"
+		datarowindex="9" setglobal="yes" description="TNT with valid D+CM">
+
+		<validator name="Community API - get siteid " description="Test Spigit Webservice">
+			<sql name="q1" dbname="apidb" includes="sqllib:SpigitApi.categorydetails">
+				@sqllib:SpigitApi.categorydetails
+			</sql>
+		</validator>
+		<validator name="Call user scores  API" description="Test Spigit Webservice">
+			<variables>
+				<var id="new_access_token" value="global:access_token" />
+				<var id="thenodeid" value="q1.nodeid" />
+				<var id="theparentid" value="q1.parentid" />
+				<var id="thesiteid" value="q1.siteid" />
+				<var id="flags" value="q1.flags" />
+				<var id="title" value="q1.title" />
+				<var id="description" value="q1.title" />
+				<var id="creator" value="q1.creator" />
+				<var id="created" value="q1.created" />
+			</variables>
+
+			<ws name="ws1" method="GET" httpclient="scm.wm.uri.HttpRestWithXmlBody">
+
+				<url>/api/ds1/node-@thenodeid</url>
+				<param name="Authorization">Bearer @new_access_token</param>
+			</ws>
+
+			<assert name="Verify all std properties present" nodepath="results"
+				indexpath="0" elements="eid,type,entityStatus,created,title,description"
+				values="null,null,null,null,null,null" datatype="String,String,String,String,String,String"
+				operator="NotNull" />
+
+			<assert name="Validate std property dataSpace present for TC1"
+				descriptor="VARCHAR" output="ws:ws1" value="dataSpace" operator="Has" />
+
+			<assert name="Validate std property creator present for TC1"
+				descriptor="VARCHAR" output="ws:ws1" value="creator" operator="Has" />
+
+			<assert name="Validate broader property present for TC1"
+				descriptor="VARCHAR" output="ws:ws1" value="broader" operator="Has" />
+
+			<assert name="Validate std property narrowers present for TC1"
+				descriptor="VARCHAR" output="ws:ws1" value="narrowers" operator="Has" />
+
+			<assert name="Verify eid value" nodepath="results" indexpath="0"
+				elements="eid" values="_ds:node-@thenodeid" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify type value" nodepath="results" indexpath="0"
+				elements="type" values="Concept" datatype="String" operator="Eq" />
+
+			<assert name="Verify entityStatus value" nodepath="results"
+				indexpath="0" elements="entityStatus" values="open" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify creator eid value" nodepath="creator"
+				indexpath="0" elements="eid" values="_ds:user-@creator" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify creator type value" nodepath="creator"
+				indexpath="0" elements="type" values="User" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify created name value" nodepath="results"
+				indexpath="0" elements="created" values="@created" datatype="String"
+				operator="Has" />
+
+			<assert name="Verify title value" nodepath="results"
+				indexpath="0" elements="title" values="@title" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify description value" nodepath="results"
+				indexpath="0" elements="description" values="@description" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify broader value" nodepath="broader"
+				indexpath="0" elements="eid" values="_ds:node-@theparentid"
+				datatype="String" operator="Eq" />
+
+			<assert name="Verify broader type value" nodepath="broader"
+				indexpath="0" elements="eid" values="Concept" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify narrowers title value" nodepath="narrowers"
+				indexpath="0" elements="title" values="@pagetitle" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify narrowers title value" nodepath="narrowers"
+				indexpath="0" elements="title" values="@pagetitle" datatype="String"
+				operator="Eq" />
+
+		</validator>
+	</action>
+
+	<action name="Verify the inScheme asked property" type="WEBSERVICE"
+		dataset="global:xls.api_setup_category" datarowindex="9" setglobal="yes"
+		description="TNT with valid D+CM">
+
+		<validator name="Community API - get siteid " description="Test Spigit Webservice">
+			<sql name="q1" dbname="apidb" includes="sqllib:SpigitApi.siteIdForCommunity">
+				@sqllib:SpigitApi.siteIdForCommunity
+			</sql>
+			<sql name="q4" dbname="apiuser" includes="sqllib:SpigitApi.usernamedetails">
+				@sqllib:SpigitApi.usernamedetails
+			</sql>
+			<sql name="q2" dbname="apidb" includes="sqllib:SpigitApi.categorydetails">
+				@sqllib:SpigitApi.categorydetails
+			</sql>
+		</validator>
+
+		<validator name="Call user scores API" description="Test Spigit Webservice">
+			<variables>
+				<var id="new_access_token" value="global:access_token" />
+				<var id="thesiteid" value="q1.siteid" />
+				<var id="firstname" value="q4.firstname" />
+				<var id="lastname" value="q4.lastname" />
+				<var id="theuserid" value="q4.userid" />
+				<var id="thenodeid" value="q2.nodeid" />
+			</variables>
+			<ws name="ws1" method="GET" httpclient="scm.wm.uri.HttpRestWithXmlBody">
+
+				<url>/api/ds1/node-@thenodeid?fields=inScheme</url>
+				<param name="Authorization">Bearer @new_access_token</param>
+			</ws>
+
+			<assert name="Verify inScheme eid value" nodepath="inScheme"
+				indexpath="0" elements="eid" values="_ds:q-@thesiteid" datatype="String"
+				operator="Eq" />
+
+			<assert name="Verify inScheme type value" nodepath="inScheme"
+				indexpath="0" elements="type" values="SuggestionBox" datatype="String"
+				operator="Eq" />
+
+		</validator>
+	</action>
+
+</page>
+
+

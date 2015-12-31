@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Validator Comparator: 1) Eq for "=" 2) Nq for NOT EQUAL (!=,<>) 3) Gt 
+	for ">" 4) Lt for "<" 5) GtEq for ">=" 6) LtEq for "<=" Global: global element 
+	syntax = global:<Module Name>.<element tag> Ex: global:TestProc.PARTNER_ID -->
+
+<page name="248EC73C2C4001B2E6505D0A1FAB5F8E" description="This is sample TestNg test">
+
+
+
+	<action name="TC1" apiname="" description="Test TestNG tests">
+
+		<validator name="Step-1: Find Order from order line"
+			description="Test individual class with some local and SQL data  ">
+
+			<sql name="q1" dbName="demodb" description="Find Order No">
+				select distinct
+				'123456' as order_no,sysdate as created_dtm,'created' as
+				current_status from dual
+
+			</sql>
+
+
+			<assert name="Verify order line number" descriptor="VARCHAR"
+				output="q1.order_no" lookuprow="1" value="0" operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Run TestNG Test"
+			description=" Run individual class QueryTest using SQL and local data">
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+			<testng name="Test com.testmax.samples.money" >
+				<testPackage name="com.testmax.samples.testng.money">
+					<testClass class="QueryTest">
+						<variables>
+							<var id="order_no" value="q1.order_no" index="1" />
+							<var id="localmsg" value="Local Message" />
+						</variables>
+					</testClass>
+					<testClass class="MoneyTest"></testClass>
+				</testPackage>
+			</testng>
+
+			<assert name="Verify order line number" descriptor="VARCHAR"
+				output="@localmsg" value="junit:localmsg" operator="Eq" />
+
+		</validator>
+
+	</action>
+
+	<action name="TC2" 	description="Test all classes in the package with SQL data set">
+		<validator name="Step-1: Find Order from order line"
+			description="">
+
+
+			<sql name="q1" dbName="demodb" description="Find Order No">
+				select distinct
+				'123456' as order_no,sysdate as created_dtm,'created' as
+				current_status from dual
+			</sql>
+
+
+			<assert name="Verify order line number" descriptor="VARCHAR"
+				output="q1.order_no" lookuprow="1" value="0" operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Run TestNG Test"
+			description=" Run entire package using query results from database, variable msg is global set by user and package level variable localmsg ">
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+			<testng name="Test com.testmax.samples.testng.money" >
+				<testPackage name="com.testmax.samples.testng.money">
+					<testClass class="*">
+						<variables>
+							<var id="order_no" value="q1.order_no" index="1" />
+							<var id="localmsg" value="Local Message" />
+						</variables>
+					</testClass>
+
+				</testPackage>
+			</testng>
+
+		</validator>
+
+	</action>
+
+	<action name="TC3" description="Test TestNG for individual class CIUnitFunctional with SQL data">
+
+
+		<validator name="Step-1: Find Order from order line"
+			description=" Query database to find order_no">
+
+			<sql name="q1" dbName="demodb" description="Find Order No">
+				select distinct
+				'123456' as order_no,sysdate as created_dtm,'created' as
+				current_status from dual
+			</sql>
+
+
+			<assert name="Verify order line number" descriptor="VARCHAR"
+				output="q1.order_no" lookuprow="1" value="0" operator="Gt" />
+
+		</validator>
+
+		<validator name="Step-2: Run TestNG Test" description=" Test using q1.order_no from SQL query">
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+			<testng name="Test com.testmax.samples.testng.money" >
+				<testPackage name="com.testmax.samples.testng.money">
+					<testClass class="CIUnitFunctional">
+						<variables>
+							<var id="order_no" value="q1.order_no" index="1" />
+							<var id="localmsg" value="Local Message" />
+						</variables>
+					</testClass>
+
+				</testPackage>
+			</testng>
+
+		</validator>
+
+	</action>
+
+	<action name="TC4" dataset="global:testng.CIFunctional"
+		description="Test all classes using XML data set from /global/testng.xml file">
+
+		<validator name="Step-1: Run TestNG Test" description="">
+			<variables>
+				<var id="msg" value="Global Message" />
+			</variables>
+			<testng name="Test com.testmax.samples.testng.money" >
+				<testPackage name="com.testmax.samples.testng.money">
+					<testClass class="*">
+
+					</testClass>
+
+				</testPackage>
+			</testng>
+
+		</validator>
+
+	</action>
+
+	<action name="TC5" dataset="global:testng.CIFunctional"
+		description="Test all classes using XML data set from /global/testng.xml file">
+
+		<validator name="Step-1: Run TestNG Test" description="">
+
+			<testng name="Test com.testmax.samples.testng.money" >
+				<testPackage name="com.testmax.samples.testng.money">
+					<testClass class="*">
+
+					</testClass>
+
+				</testPackage>
+			</testng>
+
+		</validator>
+
+	</action>
+
+</page>
+
+
+

@@ -1,0 +1,6 @@
+<global name="testng">
+	<CIFunctional description="use this data set for set of tests">
+		<data msg="Hello Message" localmsg="Local Hello Test" order_no="88678900999" />
+		<data msg="Bye Message" localmsg="Local Bye Test" order_no="8867891090" />
+	</CIFunctional>
+</global>

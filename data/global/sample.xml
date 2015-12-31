@@ -1,0 +1,37 @@
+<global name="setup">
+
+	<ShippingMethod value="Standard (1)
+,Expedited (2)
+,Rush (3)
+
+" />
+
+	<LocationType value="Commercial
+,Residential
+,Both
+" />
+
+	<AddressType value="Regular
+,Alaska/Hawaii
+,P.O. Box
+,APO/FPO
+" />
+
+	<StoreId value="0,1,2,3" />
+
+	<S2H value="15995537
+,12169919
+,16451546
+,11317129
+,1453
+,12335035
+" />
+
+	<mdeDataSet description="use this data set for set of tests">
+		<data sm="Standard (1)" lc="Commercial" ad="Regular" store="0" />
+		<data sm="Expedited (2)" lc="Residential" ad="Alaska/Hawaii"
+			store="1" />
+	</mdeDataSet>
+
+
+</global>

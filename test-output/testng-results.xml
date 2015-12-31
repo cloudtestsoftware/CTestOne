@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="NavigationDataDrivenTest" duration-ms="16344" started-at="2015-12-31T04:31:41Z" finished-at="2015-12-31T04:31:57Z">
+    <groups>
+    </groups>
+    <test name="NavigationDataDrivenTest" duration-ms="16344" started-at="2015-12-31T04:31:41Z" finished-at="2015-12-31T04:31:57Z">
+      <class name="com.qvc.navigation.NavigationDataDrivenTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.qvc.navigation.NavigationDataDrivenTest@41c65839]" name="setUp" is-config="true" duration-ms="2359" started-at="2015-12-30T20:31:41Z" finished-at="2015-12-30T20:31:43Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="Test()[pri:0, instance:com.qvc.navigation.NavigationDataDrivenTest@41c65839]" name="Test" duration-ms="13831" started-at="2015-12-30T20:31:43Z" finished-at="2015-12-30T20:31:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Test -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.qvc.navigation.NavigationDataDrivenTest@41c65839]" name="tearDown" is-config="true" duration-ms="152" started-at="2015-12-30T20:31:57Z" finished-at="2015-12-30T20:31:57Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- com.qvc.navigation.NavigationDataDrivenTest -->
+    </test> <!-- NavigationDataDrivenTest -->
+  </suite> <!-- NavigationDataDrivenTest -->
+</testng-results>

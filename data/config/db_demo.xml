@@ -1,0 +1,33 @@
+<database>
+	<!-- replace file name=db_ <your test env name>.xml -->
+	<!-- <demodb> <db>cassandra</db> <user></user> <pwd></pwd> <host>localhost</host> 
+		<port>9160</port> <rac>localhost</rac> <service>demodb</service> <url></url> 
+		<driver></driver> </demodb> You can use below elements to configure your 
+		database db= Name of the database vendor like oracle, cassandra, mysql, prostgresql 
+		etc user= database user name pwd= database password name host= host name 
+		of the database port=database port name rac= use for oracle cluster. in db 
+		connection we replace host with rac properties for oracle cluster service=database 
+		instance name url=jdbc url. if you pass url, then you may not need to pass 
+		host, rac, port elements. You need not to supply <url> name for Oracle, Cassandra,MySql 
+		or PostgreSQL driver= jdbc driver name. You need not to supply <driver> name 
+		for Oracle, Cassandra,MySql or PostgreSQL examples for Regular db config 
+		<demodb> <db>cassandra</db> <user></user> <pwd></pwd> <host>localhost</host> 
+		<port>9160</port> <service>demodb</service> </demodb> Oracle Cluster config 
+		<demodb> <db>cassandra</db> <user></user> <pwd></pwd> <host>localhost</host> 
+		<port>9160</port> <rac>localhost</rac> <service>demodb</service> </demodb 
+		or <demodb> <db>cassandra</db> <user></user> <pwd></pwd> <url>jdbc:mysql://<host>:<port>/<service></url> 
+		<driver></driver> </demodb> -->
+	<demodb>
+		<db>cassandra</db>
+		<user></user>
+		<pwd></pwd>
+		<host>localhost</host>
+		<port>9160</port>
+		<rac>localhost</rac>
+		<service>demodb</service>
+	</demodb>
+
+
+</database>
+
+

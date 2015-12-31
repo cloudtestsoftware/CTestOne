@@ -1,0 +1,167 @@
+<!-- ======================================= -->
+<!-- -->
+<!-- Ant Build File for TestMaxLib -->
+<!-- -->
+<!-- Srimanta Jana 01/2011 -->
+<!-- ======================================= -->
+
+<project name="Softlean" basedir="." default="compile">
+	
+	<property name="main-class"  value="com.testmax.runner.TestRunner"/>
+	<property name="report-class"  value="com.testmax.runner.ReportRunner"/>
+	
+	<!-- ======================================= -->
+	<!-- init target -->
+	<!-- -->
+	<!-- ======================================= -->
+
+	<target name="init" description="initialize properties and paths">
+
+		<!-- read the TestMaxLib build.properties file -->
+		<property file="${basedir}/build.properties" />
+		<mkdir dir="${TestMaxLib.build}" />
+		<mkdir dir="${TestMaxLib.classes}" />
+		<mkdir dir="${TestMaxLib.doc}" />
+
+	</target>
+
+	<!-- ======================================= -->
+	<!-- compile target -->
+	<!-- -->
+	<!-- ======================================= -->
+
+	<target name="compile" depends="init"
+		description="compile again test source for TestMaxLib">
+
+		<javac srcdir="${TestMaxLib.dir}" destdir="${TestMaxLib.classes}"
+			classpath="${CLASSPATH}" debug="on" includeAntRuntime="false"
+			includejavaruntime="false" failonerror="${FAIL_ON_ERROR}" nowarn="true"
+			source="1.5">
+			<classpath>
+				<fileset dir="${TestMaxLib.lib}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+
+	</target>
+
+	<target name="jar" depends="compile">
+
+		<jar destfile="${TestMaxLib.jardir}/${TestMaxLib.jarname}"
+			basedir="${TestMaxLib.classes}">
+			<manifest>
+				<attribute name="Main-Class" value="com.testmax.runner.TestRunner" />
+			</manifest>
+		</jar>
+
+	</target>
+
+	<target name="doc" depends="init"
+		description="generate documentation from the sources ">
+		<javadoc destdir="${TestMaxLib.doc}" author="false" version="false"
+			use="false">
+			<fileset dir="${TestMaxLib.dir}" defaultexcludes="yes">
+				<include name="**/*.java" />
+			</fileset>
+			<doctitle><![CDATA[<h1>TestMaxLib Documentation</h1>]]></doctitle>
+		</javadoc>
+	</target>
+
+	<target name="clean" depends="init" description="delete classes">
+		<delete dir="${TestMaxLib.classes}" />
+	</target>
+
+	<target name="all" depends="compile,jar,doc" />
+
+	<target name="cleanall" depends="init"
+		description="delete classes, jar and javadoc">
+		<delete dir="${TestMaxLib.build}" />
+		<delete dir="${TestMaxLib.doc}" />
+	</target>
+	
+	<target name="run" >
+		<!-- 
+		arg{0]=name=$name
+				page=$page    
+				browsers=$browsers
+				env=$env
+				datasetextension=$datasetextension
+				overrideattributes=$overrideattributes
+				groupbythread=$groupbythread
+				baseurl=$baseurl
+				action=$action
+				threads=$threads
+				timeout=$timeout
+		-->
+	     <java fork="true" classname="${main-class}">
+	     	<arg value="${name}"/>
+	     	<arg value="${page}"/>
+	     	<arg value="${browsers}"/>
+	     	<arg value="${env}"/>
+	     	<arg value="${datasetextension}"/>
+	     	<arg value="${overrideattributes}"/>
+	     	<arg value="${groupbythread}"/>
+	     	<arg value="${baseurl}"/>
+	     	<arg value="${action}"/>
+	     	<arg value="${threads}"/>
+	     	<arg value="${timeout}"/>
+	     	<arg value="${buildno}"/>
+	     	<arg value="${buildid}"/>
+	     	<arg value="${jenkinsurl}"/>
+	     	<arg value="${jobname}"/>
+	     	<arg value="${workspace}"/>
+	     	<arg value="${nodename}"/>
+	     	<arg value="${serviceurl}"/>
+	      	<classpath>
+	      		<fileset dir="./lib">
+	      			<include name="**/*.jar" />
+	      		</fileset>
+	      	 </classpath>
+	      </java>
+	 </target>
+	
+	<target name="report" >
+			<!-- 
+			arg{0]=name=$name
+					page=$page    
+					browsers=$browsers
+					env=$env
+					datasetextension=$datasetextension
+					overrideattributes=$overrideattributes
+					groupbythread=$groupbythread
+					baseurl=$baseurl
+					action=$action
+					threads=$threads
+					timeout=$timeout
+			-->
+		     <java fork="true" classname="${report-class}">
+		     	<arg value="${name}"/>
+		     	<arg value="${page}"/>
+		     	<arg value="${browsers}"/>
+		     	<arg value="${env}"/>
+		     	<arg value="${datasetextension}"/>
+		     	<arg value="${overrideattributes}"/>
+		     	<arg value="${groupbythread}"/>
+		     	<arg value="${baseurl}"/>
+		     	<arg value="${action}"/>
+		     	<arg value="${threads}"/>
+		     	<arg value="${timeout}"/>
+		     	<arg value="${buildno}"/>
+		     	<arg value="${buildid}"/>
+		     	<arg value="${jenkinsurl}"/>
+		     	<arg value="${jobname}"/>
+		     	<arg value="${workspace}"/>
+		     	<arg value="${nodename}"/>
+		     	<arg value="${serviceurl}"/>
+		      	<classpath>
+		      		<fileset dir="./lib">
+		      			<include name="**/*.jar" />
+		      		</fileset>
+		      	 </classpath>
+		      </java>
+		 </target>
+
+</project>
+
+

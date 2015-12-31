@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This page is a simple skeleton for building all test scenarios automation 
+You should replace the injector with actual injector @taglib:your_taglib_name.your_injector_name 
+However, you can add multiple different validators with multiple test steps within a single action container 
+in combination with Seleneium and web service, mobile, junit, TestNg, SQL etc. 
+to build complex end to end tests.  
+You can also add assert containers within each validators.There are many types of operators and varaible combinations supported.   
+Below are just 2 simple examples one is with hardcoded expected value and other is using parameter input either from dataset in XLS or local varible defined within Validator container 
+<assert name="Verify your expected result" descriptor="VARCHAR" output="junit:v_read_from_browser_variable" value="Hardcoded Text Value" operator="Has" /> 
+<assert name="Verify expected=@input_from_xls value" descriptor="VARCHAR" output="junit:v_read_from_browser_variable" value="@input_from_xls" operator="Has" />
+Please reffer to your training manual or FAQ documents for details.  -->
+<page name="248EC73C2C4001B5E0505D1A1FAB5F8E" description="Smoke Test for search">
+
+
+<action name="QVC TestNg  Data Driven Test" dataset="global:xls.qvc_category_data"  description="QVC TestNg  Data Driven Test">
+
+		<validator name="Step-1: Run TestNg Test" description="">
+
+			<testng name="Test com.qvc.navigation" >
+				<testPackage name="com.qvc.navigation">
+					<testClass class="NavigationDataDrivenTest"></testClass>
+				</testPackage>
+			</testng>
+
+          <assert name="Verify price for item= @mainmenu_name: @submenu_name : @searchtext " descriptor="NUMBER" output="junit:v_verify_item_value" value="5" operator="Gt" /> 
+           
+		</validator>
+
+	</action>
+
+
+<action name="QVC TestNg General Test"   description="QVC TestNg General Test">
+
+		<validator name="Step-1: Run TestNg Test" description="">
+
+			<testng name="Test com.qvc.navigation" >
+				<testPackage name="com.qvc.navigation">
+					<testClass class="NavigationTest"></testClass>
+				</testPackage>
+			</testng>
+
+          <assert name="Verify price for item= @mainmenu_name: @submenu_name : @searchtext " descriptor="NUMBER" output="junit:v_verify_item_value" value="5" operator="Gt" /> 
+           
+		</validator>
+
+	</action>
+</page>
