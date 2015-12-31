@@ -1,6 +1,9 @@
 # CTestOne
 Cloud Test Software Open source software test automation tool with recording plugin
 
+
+Visit [CloudTestSoftware](http://www.CloudTestSoftware.com)
+
  To use this framework to build quick browser automation tests follow these simple steps
        
         1) Register an account with www.CloudTestSoftware.com using your company email and password
