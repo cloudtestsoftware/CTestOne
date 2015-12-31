@@ -6,7 +6,7 @@ Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
 
 Install CloudTest Software's [ CTO Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware) as chrome plugin
 
-[ Get FREE support ](http://sandbox.artitelly.com/testrepo/service?servicekey=c2phbmFAY2xvdWR0ZXN0c29mdHdhcmUuY29tO3NyaWppdDk2O2NhbXBhaWdu&sendreference=0&refobjid=2599B7BB58AA1AD9E0505D0A1FAB7682) 
+[ Get FREE support ](http://sandbox.artitelly.com/testrepo/service?servicekey=c2phbmFAY2xvdWR0ZXN0c29mdHdhcmUuY29tO3NyaWppdDk2O2NhbXBhaWdu&sendreference=0&refobjid=2599B7BB58AA1AD9E0505D0A1FAB7682) within 24 Hrs
 
 
 CTO recording tool is used to create automation script using XML and it does not require any coding with TestNG or Junit using Selenium.
