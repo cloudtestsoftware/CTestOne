@@ -6,6 +6,8 @@ Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
 
 Install CloudTest Software's [ CTO Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware) as chrome plugin
 
+Watch [Sample Demo](http://www.cloudtestsoftware.com/#!open-source-project-demo/cil4) how you can build faster automation with this Open Source tool
+
 [ Get FREE support ](http://sandbox.artitelly.com/testrepo/service?servicekey=c2phbmFAY2xvdWR0ZXN0c29mdHdhcmUuY29tO3NyaWppdDk2O2NhbXBhaWdu&sendreference=0&refobjid=2599B7BB58AA1AD9E0505D0A1FAB7682) within 24 Hrs
 
 
@@ -14,6 +16,8 @@ CTO recording tool is used to create automation script using XML and it does not
 CloudTestSoftware has built an automation framework which can create injectors and also you can build complex automation tests using browser, mobile, web service, database, Java Script, Java, Python  etc. If you want to build simple TestNg / Junit Tests or Selenium WebDriver tests, please refer to the last section of this document. This tool supports your homegrown automation script and can easily be run as TestNG or Junit classes. You also can use python script for Selenium automation using this tool.
 
 If you find any issue, please create a ticket using ISSUEs. Also please use [ CTO Group](https://groups.google.com/forum/#!forum/cloud-test-software--software-automation-as-a-service) to discuss any issues.
+
+
 
 
 ## Steps for browser Automation Tests using CTO recording tool                     (No Coding needed)
