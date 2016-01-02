@@ -42,7 +42,7 @@ public class NavigationDataDrivenTest {
         1) Register an account with www.CloudTestSoftware.com using your company email and password
         2) Login to the account using email and password
         3) Watch videos
-        4) Create a sample Product -->Release -->Project -->Epic--Feature --> Scenerios
+        4) Create a sample Product -->Release -->Project -->Epic--Feature --> Scenarios
         5) Generate a Feature Template using button in Feature screen (each feature is a Test Suite)
         6) Copy Feature Template file generated to your eclipse project under ../data/module/Frontend/{YourProject} with a custom name
         7) Create a XL sheet and save as .csv similar to ../data/global/QVC_Smoke/qvc_cataegory_data.csv

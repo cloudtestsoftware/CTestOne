@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You must set Page= <Module File Name> without .xml file extension Ex: 
+	page="TestProc" You can run your test in 4 different modes. 1) Performance 
+	Test for Individual Test Case - set action= performance@<TestCase action 
+	Name defined in Module File> Ex: action="performance@TC1.0" 2) Entire Test 
+	suite - set action=performance (Case insensitive) Ex: action=performance 
+	3) Unit Testing Entire Suite - set action=UNIT (Case insensitive) Ex: action=unit 
+	4) Unit Testing Individual Test - set action=UNIT@<action Name> (Case insensitive) 
+	Ex: action="unit@TC1.0" For browser testing use can use these 2 additional 
+	attributes to override baseUrl and browsers which is in your config.properties. 
+	Do not use these below 2 attributes which are not browser based test. browsers="firefox" 
+	baseurl="http://mydomain.com" you can override your QA_TEST_ENV parameter 
+	usinf env attribute -->
+
+<testdata>
+
+	<!-- Run this datasetup script only once before running any test. Comment 
+		this section once your test data is created -->
+		
+
+	<Test name="QVC Navigation Test" 
+	    page="248EC73C2C4001B5E0505D1A1FAB5F8E"
+	    env="demo" 
+	    browsers="firefox"
+		baseurl="http://www.qvc.com" 
+		action="unit@QVC TestNg  Data Driven Test" 
+		overrideattributes="Runid 11FA4500DAE06542E050B90A27937FC2,FeatureId 0F7EADDBA92763F8E050B90A27932F90,MatrixId 0F7EADDBA94263F8E050B90A27932F90"
+		groupbythread=""
+		datasetextension=""
+		threads="3" 
+		serviceurl="http://sandbox.artitelly.com/testrepo"
+		timeout="60" />
+	
+	
+
+</testdata>
+
+
