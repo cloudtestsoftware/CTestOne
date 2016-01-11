@@ -1,8 +1,10 @@
 # CTestOne
-Cloud Test Software [Open source test automation tool](https://github.com/cloudtestsoftware/TestMax)  with recording plugin
 
+Please download SDK or create a fork if you like to build the automation script quickly.
 
-Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
+if you like to join us to build any plugin to cloud test to hook up any external tool not currently supported, you can [look at the source code](https://github.com/cloudtestsoftware/TestMax)
+
+Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com) and signup to get free training.
 
 Install CloudTest Software's [ CTO Recording Tool](https://chrome.google.com/webstore/search/CloudTestSoftware) as chrome plugin
 
@@ -79,4 +81,5 @@ If you like to save cost of script and want easy maintenance, then use the CTO r
         13) Select the project in eclipse --> Run Configuration --> Click Java Application --> Right Click -->
             Click New --> Click Search button (2nd) --> Search TestRunner --> 
             select com.testmax.runner.TestRunner --> Click Run
+            
   
