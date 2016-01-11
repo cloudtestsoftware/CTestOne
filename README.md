@@ -1,5 +1,5 @@
 # CTestOne
-Cloud Test Software [Open source software](https://github.com/cloudtestsoftware/TestMax) test automation tool with recording plugin
+Cloud Test Software [Open source test automation tool](https://github.com/cloudtestsoftware/TestMax)  with recording plugin
 
 
 Find details about [CloudTestSoftware](http://www.CloudTestSoftware.com)
