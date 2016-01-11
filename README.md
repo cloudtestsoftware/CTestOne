@@ -25,11 +25,12 @@ If you find any issue, please create a ticket using ISSUEs. Also please use [ CT
 If you like to save cost of script and want easy maintenance, then use the CTO recoder and XML script which does not require any programming language or coding. However, you can build complex automated tests using XML or Java injectors. Please watch videos to learn and refer sample XML script given under ../data/module/Frontend/QVC
 
   [Register an account](http://sandbox.artitelly.com/testrepo/service) with CloudTestSoftware
-
+  
+  [Watch videos](http://www.cloudtestsoftware.com/#!open-source-project-demo/cil4)
 
     1) Register an account with www.CloudTestSoftware.com using your company email and password
     2) Login to the account using email and password
-    3) Watch videos
+    3) Watch videos using above link
     4) Create a sample Product -->Release -->Project -->Epic--Feature --> Scenarios
     5) Generate a Feature Template using button in Feature screen (each feature is a Test Suite)
     6) Copy Feature Template file generated to your eclipse project under 
