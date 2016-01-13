@@ -26,7 +26,7 @@ If you find any issue, please create a ticket using ISSUEs. Also please use [ CT
 
 If you like to save cost of script and want easy maintenance, then use the CTO recoder and XML script which does not require any programming language or coding. However, you can build complex automated tests using XML or Java injectors. Please watch videos to learn and refer sample XML script given under ../data/module/Frontend/QVC
 
-  [Register an account](http://sandbox.artitelly.com/testrepo/service) with CloudTestSoftware
+  [Register an account](http://www.cloudtestsoftware.com/#!login/c7ez) with CloudTestSoftware
   
   [Watch videos](http://www.cloudtestsoftware.com/#!open-source-project-demo/cil4)
 
